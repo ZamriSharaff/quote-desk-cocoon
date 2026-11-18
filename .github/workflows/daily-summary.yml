@@ -3,11 +3,6 @@ name: Daily Owner Summary
 on:
   workflow_dispatch:
 
-  # Temporary schedule for testing.
-  # Runs every five minutes, starting at minute 2.
-  schedule:
-    - cron: "2/5 * * * *"
-
 permissions:
   contents: read
 
