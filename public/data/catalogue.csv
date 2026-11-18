@@ -1,0 +1,35 @@
+sku,name,category,unit,price_lkr,stock,updated
+KS-1001,Stainless Steel Work Table 1200mm,Tables,each,"48,500.00",12,2026-10-05
+KS-1002,Stainless Steel Work Table 1500mm,Tables,each,"57,900.00",7,2026-10-05
+KS-1003,Stainless Steel Work Table 1800mm with Undershelf,Tables,each,"72,250.00",3,2026-10-05
+KS-1104,Wall Shelf 1200mm,Shelving,each,"14,800.00",20,2026-09-21
+KS-1105,Wall Shelf 1500mm,Shelving,each,"17,600.00",0,2026-09-21
+KS-2210,GN Pan 1/1 65mm,Gastronorm,each,"4,850.00",140,2026-10-12
+KS-2211,GN Pan 1/1 100mm,Gastronorm,each,"6,200.00",14,2026-10-12
+KS-2212,GN Pan 1/2 65mm,Gastronorm,each,"2,950.00",88,2026-10-12
+KS-2213,GN Pan 1/3 100mm,Gastronorm,each,"2,700.00",61,2026-10-12
+KS-2214,GN Pan Lid 1/1,Gastronorm,each,"2,100.00",75,2026-10-12
+KS-2210,GN Pan 1/1 65mm,Gastronorm,each,"5,150.00",140,2026-11-02
+KS-3001,Gas Range 4 Burner with Oven,Cooking,each,"385,000.00",2,2026-08-30
+KS-3002,Gas Range 6 Burner with Oven,Cooking,each,"512,000.00",1,2026-08-30
+KS-3003,Deep Fryer Twin Tank 2x8L (Gas),Cooking,each,"164,500.00",4,2026-10-19
+KS-3004,deep fryer single tank 8L (electric),Cooking,each,"68,900.00",6,2026-10-19
+KS-3005,Salamander Grill 600mm,Cooking,each,"129,000.00",,2026-10-19
+KS-3006,Rice Cooker Commercial 10L,Cooking,each,"32,400.00",18,2026-09-14
+KS-3007,බත් උයන යන්ත්‍රය 23L (Rice Cooker Commercial 23L),Cooking,each,"58,750.00",5,2026-09-14
+KS-4001,Upright Chiller 2 Door,Refrigeration,each,"465,000.00",2,2026-10-26
+KS-4002,Under Counter Chiller 1500mm,Refrigeration,each,"298,000.00",3,2026-10-26
+KS-4003,Chest Freezer 400L,Refrigeration,each,"189,900.00",0,2026-10-26
+KS-4004,Bottle Cooler 3 Door,Refrigeration,each,call,1,2026-10-26
+KS-5001,Chef Knife 10 inch,Smallwares,each,"6,450.00",40,2026-07-01
+KS-5002,Cutting Board Colour Coded Set of 6,Smallwares,set,"11,200.00",25,2026-07-01
+KS-5003,Stock Pot 50L Aluminium,Smallwares,each,"18,900.00",15,2026-07-01
+KS-5004,Stock Pot 50L Stainless,Smallwares,each,"42,300.00",9,2026-07-01
+KS-5005,Ladle 8oz,Smallwares,dozen,"7,800.00",30,2026-07-01
+KS-5006,Ladle 8oz,Smallwares,each,750.00,360,2026-07-01
+KS-6001,Dishwasher Undercounter,Warewashing,each,"425,000.00",1,2026-09-08
+KS-6002,Pre Rinse Spray Unit,Warewashing,each,"36,500.00",8,2026-09-08
+KS-6003,Three Bowl Sink 1800mm,Warewashing,each," 96,000.00 ",4,2026-09-08
+KS-7001,Chafing Dish 8L Roll Top,Buffet,each,"38,500.00",22,2026-10-12
+KS-7002,Chafing Dish 8L Economy,Buffet,each,"16,900.00",60,2026-10-12
+KS-7003,Chafing Fuel Gel (case of 72),Buffet,case,"9,400.00",45,2026-10-12

@@ -9,6 +9,8 @@
   },
   "scripts": {
     "start": "node --env-file=.env src/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "build": "node scripts/build-pages.js",
+    "pages:dev": "npm run build && npx wrangler@latest pages dev public --port 8788"
   }
 }

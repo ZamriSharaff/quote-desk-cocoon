@@ -8,7 +8,7 @@
 
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions';
 
-const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 
 export const REPLY_SYSTEM_INSTRUCTION = `You write two short pieces of customer-facing WhatsApp wording for Lakeside Kitchen Supply, a commercial kitchen equipment supplier in Colombo.
 
@@ -83,7 +83,7 @@ function parseJsonOutput(text) {
 
 // Do not allow the model to insert figures or business facts
 // into the parts of the message that it writes.
-function safeWording(value, fallback) {
+function safeWording(value, fallback, productNames = []) {
   if (typeof value !== 'string') return fallback;
 
   const text = value
@@ -92,9 +92,21 @@ function safeWording(value, fallback) {
     .trim();
 
   const unsafeContent =
-    /[0-9$€£₹%]|\b(?:LKR|Rs\.?|rupees?|price|prices|discount|VAT|tax|subtotal|total|amount|SKU|stock|delivery|approved|approval|available|availability|warranty)\b/i;
+    /[0-9$€£₹%]|\b(?:LKR|Rs\.?|rupees?|price|prices|discount|VAT|tax|subtotal|total|amount|SKU|stock|delivery|approved|approval|available|availability|warranty|quotation|quote)\b/i;
 
-  if (!text || text.length > 180 || unsafeContent.test(text)) {
+  const mentionsProduct = productNames.some((name) => {
+    const productName = String(name || '').trim().toLowerCase();
+
+    return productName.length > 2 &&
+      text.toLowerCase().includes(productName);
+  });
+
+  if (
+    !text ||
+    text.length > 180 ||
+    unsafeContent.test(text) ||
+    mentionsProduct
+  ) {
     return fallback;
   }
 
@@ -103,14 +115,13 @@ function safeWording(value, fallback) {
 
 
 // Ask Gemini to write the wording around the quotation.
-export async function draftReply(enquiry = '') {
-  const apiKey = process.env.GEMINI_API_KEY;
+export async function draftReply(enquiry = '', options = {}) {
+  const apiKey = options.apiKey;
+  const model = options.model || DEFAULT_MODEL;
+  const productNames = options.productNames || [];
 
   if (!apiKey) {
-    throw makeError(
-      'GEMINI_API_KEY is missing. Add it to your local .env file and restart the server.',
-      503
-    );
+    throw makeError('GEMINI_API_KEY is missing.', 503);
   }
 
   // Limit the amount of customer-provided text sent to the model.
@@ -119,7 +130,7 @@ export async function draftReply(enquiry = '') {
     .slice(0, 4000);
 
   const requestBody = {
-    model: MODEL,
+    model,
 
     system_instruction: REPLY_SYSTEM_INSTRUCTION,
 
@@ -230,17 +241,9 @@ export async function draftReply(enquiry = '') {
   const result = parseJsonOutput(outputText);
 
   return {
-    opening: safeWording(
-      result.opening,
-      FALLBACK_OPENING
-    ),
-
-    closing: safeWording(
-      result.closing,
-      FALLBACK_CLOSING
-    ),
-
-    model: MODEL,
+    opening: safeWording(result.opening, FALLBACK_OPENING, productNames),
+    closing: safeWording(result.closing, FALLBACK_CLOSING, productNames),
+    model,
   };
 }
 

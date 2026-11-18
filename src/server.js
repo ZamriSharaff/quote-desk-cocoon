@@ -257,9 +257,11 @@ const server = createServer(async (req, res) => {
       const quote = calculateQuote(body.items);
 
       // Gemini writes wording only.
-      const wording = await draftReply(
-        body.enquiry || ''
-      );
+      const wording = await draftReply(body.enquiry || '', {
+        apiKey: process.env.GEMINI_API_KEY,
+        model: process.env.GEMINI_MODEL,
+        productNames: quote.lines.map((line) => line.name),
+      });
 
       // The application inserts all financial information.
       const draft = buildCustomerReply({
