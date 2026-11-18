@@ -1,47 +1,95 @@
-# Quote Desk starter
+# Quote Desk
 
-The starting point for the Cocoon engineering exercise. It is a small quote
-service for a fictional kitchen-equipment distributor: a product catalogue, a
-quote calculator and an HTTP server. It has no dependencies, so it runs on any
-machine with Node 20 or newer.
+A lightweight quotation tool for Lakeside Kitchen Supply, built as part of the Cocoon engineering exercise.
 
-It is not finished and it is not clean. That is deliberate.
+Quote Desk helps salespeople find products, prepare quotations and draft customer replies without manually calculating prices.
 
-## Run it
+## Features
+
+- Search products by name or SKU from the local catalogue.
+- Add products and quantities to a quotation.
+- Automatically calculate bulk discounts, VAT and totals.
+- Flag quotations that require owner's approval.
+- Generate WhatsApp reply drafts using Google's Gemini API.
+- Edit and copy the generated message before sending it manually.
+
+All financial calculations are handled by the application, not the AI model.
+
+## Requirements
+
+- Node.js 20.6 or newer.
+- A Gemini API key for AI generated replies.
+
+## Getting started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ZamriSharaff/quote-desk-cocoon.git
+cd quote-desk-cocoon
+```
+
+Create your local environment file:
+
+```bash
+cp .env.example .env
+```
+
+On Windows PowerShell, use:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Add your Gemini API key to `.env`:
+
+```env
+PORT=8787
+GEMINI_API_KEY=your_api_key_here
+GEMINI_MODEL=gemini-3.1-flash-lite
+```
+
+## Running the application
+
+Run the tests:
 
 ```bash
 npm test
 ```
 
+Start the server:
+
 ```bash
 npm start
 ```
 
-Then try `http://localhost:8787/health` and `http://localhost:8787/products?q=Chafing`.
+Open the application at:
 
-## What is here
+http://localhost:8787
 
-| Path | What it is |
+## Project structure
+
+| Path | Description |
 |---|---|
-| `data/catalogue.csv` | The client's price list, exported from their spreadsheet. Real data is messy. So is this. |
-| `data/enquiries.json` | Twelve enquiries as they actually arrive. Read every one before you design anything. |
-| `src/catalogue.js` | Loads and searches the catalogue. |
-| `src/quote.js` | Prices a quote: bulk discount, then VAT. |
-| `src/server.js` | The HTTP API. |
-| `src/llm.js` | Empty. The model wrapper is yours to write. |
-| `test/` | The tests. Some fail. Some bugs have no test at all. |
+| `data/` | Product catalogue and sample enquiries |
+| `public/` | Frontend HTML, CSS and JavaScript |
+| `src/catalogue.js` | Catalogue loading and product search |
+| `src/quote.js` | Discount, VAT and quotation calculations |
+| `src/server.js` | HTTP server and API endpoints |
+| `src/llm.js` | Gemini API integration and reply generation |
+| `test/` | Automated tests |
 
-## What you do with it
+## Current limitations
 
-1. Put it in your own public GitHub repository and commit early and often. Your
-   commit history is part of what we read.
-2. Get the tests passing. Then find what the tests do not cover.
-3. Build on it, or rewrite it in the language you are strongest in. If you
-   rewrite, say why, and bring the tests with you.
+- Product prices come from a local catalogue; live Meridian pricing is not integrated.
+- Stock information is indicative and requires warehouse confirmation.
+- Internet connectivity is required for AI generated replies.
+- Quotes requiring approval are flagged, but approval notifications and workflows are not implemented.
+- WhatsApp messages must be reviewed, copied and sent manually.
+- Offline functionality and user authentication are not implemented.
 
-You may change anything, including this file. By the end, this README should
-be true for a stranger who clones your repository.
+This is a functional prototype and is not yet intended for production use.
 
 ## Licence
 
-MIT. What you build on top of this is yours.
+MIT
