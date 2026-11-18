@@ -15,7 +15,8 @@ export function buildQuote(lines) {
   });
   const subtotal = priced.reduce((a, l) => a + l.gross, 0);
   const discount = priced.reduce((a, l) => a + l.discount, 0);
-  const vat = subtotal * VAT_RATE;
-  const total = subtotal + vat - discount;
+  const netSubtotal = subtotal - discount;
+  const vat = netSubtotal * VAT_RATE;
+  const total = netSubtotal + vat;
   return { lines: priced, subtotal, discount, vat, total };
 }
