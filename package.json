@@ -1,12 +1,14 @@
 {
   "name": "quote-desk-starter",
   "version": "0.1.0",
-  "description": "Starter for the Cocoon engineering exercise: a small quote service with real data and real problems.",
+  "description": "Quote Desk for Lakeside Kitchen Supply",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20.6"
+  },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node --env-file=.env src/server.js",
     "test": "node --test"
   }
 }
