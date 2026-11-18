@@ -11,8 +11,15 @@ export function splitCsvLine(line) {
   let cur = '';
   let quoted = false;
   for (const ch of line) {
-    if (ch === '"') { quoted = !quoted; continue; }
-    if (ch === ',' && !quoted) { out.push(cur); cur = ''; continue; }
+    if (ch === '"') {
+      quoted = !quoted;
+      continue;
+    }
+    if (ch === ',' && !quoted) {
+      out.push(cur);
+      cur = '';
+      continue;
+    }
     cur += ch;
   }
   out.push(cur);
@@ -44,16 +51,23 @@ export function loadCatalogue(path = CSV) {
       stock: Number(row.stock),
       updated: row.updated,
     };
-    // when a SKU appears more than once, it keeps the most recently updated entry
+    // if a SKU appears more than once, keep the latest price
     const existing = bySku.get(product.sku);
     if (!existing || product.updated > existing.updated) {
       bySku.set(product.sku, product);
     }
   }
+
   return [...bySku.values()];
 }
 
 export function search(products, query) {
-  const re = new RegExp(query, 'i');
-  return products.filter((p) => re.test(p.name) || re.test(p.sku));
+  const term = String(query ?? '').trim().toLowerCase();
+
+  if (!term) return products;
+
+  return products.filter((product) =>
+    product.name.toLowerCase().includes(term) ||
+    product.sku.toLowerCase().includes(term)
+  );
 }

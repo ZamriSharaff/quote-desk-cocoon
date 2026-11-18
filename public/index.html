@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14231f">
+  <title>Quote Desk | Lakeside Kitchen Supply</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Quote Desk home">
+      <span class="brand-mark">L</span>
+      <span><strong>Lakeside</strong><small>Kitchen Supply</small></span>
+    </a>
+    <div class="topbar-right">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Quote Desk</span>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">SALES WORKSPACE</p>
+        <h1>Create a quotation</h1>
+        <p class="subheading">Find products, add quantities and prepare a quote for your customer.</p>
+      </div>
+      <div class="salesperson-chip">
+        <span class="avatar">K</span>
+        <span><strong>Kumari</strong><small>Sales team</small></span>
+      </div>
+    </section>
+
+    <div class="notice" role="note">
+      <strong>Price check required.</strong>
+      These prices come from the local catalogue.
+      Live Meridian pricing is not connected yet, so verify prices
+      with the supplier before sending a quote.
+    </div>
+
+    <div class="workspace">
+      <!-- PRODUCT SELECTION -->
+      <section class="panel product-panel" aria-labelledby="products-heading">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STEP 1</p>
+            <h2 id="products-heading">Choose products</h2>
+          </div>
+          <span class="muted-label" id="product-count">
+            Loading catalogue…
+          </span>
+        </div>
+
+        <label class="field-label" for="product-search">Search by product name or SKU</label>
+
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            id="product-search"
+            type="search"
+            placeholder="Try ‘GN pan’ or ‘KS-2210’"
+            autocomplete="off"
+          >
+        </div>
+
+        <div
+          id="product-results"
+          class="product-results"
+          aria-live="polite"
+        >
+          <p class="empty-message">Loading products…</p>
+        </div>
+      </section>
+
+      <!-- QUOTATION -->
+      <section class="panel quote-panel" aria-labelledby="quote-heading">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STEP 2</p>
+            <h2 id="quote-heading">Your quotation</h2>
+          </div>
+          <span class="quote-count" id="quote-count">0 items</span>
+        </div>
+
+        <div class="customer-fields">
+          <div>
+            <label class="field-label" for="customer-name">Customer name</label>
+            <input
+              id="customer-name"
+              type="text"
+              placeholder="e.g. Hotel Hilltop"
+            >
+          </div>
+
+          <div>
+            <label class="field-label" for="customer-contact">WhatsApp / contact (optional)</label>
+            <input
+              id="customer-contact"
+              type="text"
+              placeholder="Customer contact"
+            >
+          </div>
+        </div>
+
+        <div
+          id="quote-lines"
+          class="quote-lines"
+          aria-live="polite"
+        >
+          <div class="empty-quote">
+            <span class="empty-icon">＋</span>
+            <strong>Your quote is empty</strong>
+            <span>Search for a product and add it to get started.</span>
+          </div>
+        </div>
+
+        <div class="totals" id="quote-totals">
+          <div class="total-row">
+            <span>Subtotal</span>
+            <strong id="subtotal">LKR 0.00</strong>
+          </div>
+          <div class="total-row discount-row">
+            <span>Bulk discount</span>
+            <strong id="discount">− LKR 0.00</strong>
+          </div>
+          <div class="total-row">
+            <span>VAT (18%)</span>
+            <strong id="vat">LKR 0.00</strong>
+          </div>
+          <div class="total-row grand-total">
+            <span>Total</span>
+            <strong id="total">LKR 0.00</strong>
+          </div>
+        </div>
+
+        <div
+          id="approval-notice"
+          class="approval-notice"
+          hidden
+        ></div>
+
+        <div
+          id="quote-error"
+          class="error-message"
+          role="alert"
+          hidden
+        ></div>
+
+      </section>
+    </div>
+
+
+    <!-- WHATSAPP MESSAGE -->
+    <section class="panel reply-panel" aria-labelledby="reply-heading">
+      <div class="panel-heading reply-heading">
+        <div>
+          <p class="eyebrow">STEP 3</p>
+          <h2 id="reply-heading">Prepare your WhatsApp reply</h2>
+          <p class="panel-description">
+            Review the message before copying it.
+            Nothing is sent automatically.
+          </p>
+        </div>
+        <span class="draft-tag">Manual draft</span>
+      </div>
+
+      <textarea
+        id="reply-preview"
+        rows="8"
+        placeholder="Your message preview will appear here after you prepare a quote."
+        aria-label="WhatsApp message preview"
+      ></textarea>
+
+
+      <div class="reply-actions">
+        <span
+          id="reply-status"
+          class="muted-label"
+          aria-live="polite"
+        >
+          A basic message template is available once your quote is ready.
+        </span>
+
+        <div class="reply-buttons">
+          <button
+            id="create-message"
+            class="button button-secondary"
+            type="button"
+            disabled
+          >
+            Create message preview
+          </button>
+          <button
+            id="copy-reply"
+            class="button button-primary"
+            type="button"
+            disabled
+          >
+            Copy message
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <p class="page-footnote">
+      Prices are read from the local product catalogue.
+      Stock figures are indicative and should be confirmed with the warehouse.
+    </p>
+
+  </main>
+
+</body>
+</html>
