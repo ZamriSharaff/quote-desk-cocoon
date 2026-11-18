@@ -10,7 +10,7 @@ export const BULK_DISCOUNT = 0.05;
 export function buildQuote(lines) {
   const priced = lines.map((l) => {
     const gross = l.qty * l.unitPrice;
-    const discount = l.qty > BULK_QTY ? gross * BULK_DISCOUNT : 0;
+    const discount = l.qty >= BULK_QTY ? gross * BULK_DISCOUNT : 0;
     return { ...l, gross, discount, net: gross - discount };
   });
   const subtotal = priced.reduce((a, l) => a + l.gross, 0);
