@@ -44,7 +44,11 @@ export function loadCatalogue(path = CSV) {
       stock: Number(row.stock),
       updated: row.updated,
     };
-    if (!bySku.has(product.sku)) bySku.set(product.sku, product);
+    // when a SKU appears more than once, it keeps the most recently updated entry
+    const existing = bySku.get(product.sku);
+    if (!existing || product.updated > existing.updated) {
+      bySku.set(product.sku, product);
+    }
   }
   return [...bySku.values()];
 }
