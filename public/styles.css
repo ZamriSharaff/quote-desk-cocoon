@@ -792,3 +792,102 @@ textarea {
     align-items: flex-start;
   }
 }
+
+/* Stage 5: mobile and one thumb usability improvements */
+
+button,
+input,
+textarea {
+  touch-action: manipulation;
+}
+
+@media (max-width: 540px) {
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Larger, easier-to-read input fields. */
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  input {
+    min-height: 50px;
+  }
+
+  .search-wrap input {
+    min-height: 54px;
+  }
+
+  /* Larger touch targets for buttons. */
+  .button {
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .button-small {
+    min-height: 48px;
+    min-width: 82px;
+  }
+
+  .product-actions .button {
+    min-width: 88px;
+  }
+
+  /* Make product cards easier to interact with. */
+  .product-card {
+    min-height: 90px;
+    padding: 14px 12px;
+    gap: 12px;
+  }
+
+  .product-name {
+    font-size: 14px;
+  }
+
+  .product-price {
+    font-size: 13px;
+  }
+
+  /* Easier quantity selection. */
+  .qty-control input {
+    width: 78px;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  /* Larger remove button. */
+  .remove-line {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+  }
+
+  /* Larger message editing area. */
+  textarea {
+    min-height: 180px;
+    padding: 14px;
+  }
+
+  /* Large, easy-to-press reply buttons. */
+  .reply-buttons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .reply-buttons .button {
+    width: 100%;
+    min-height: 52px;
+    font-size: 14px;
+  }
+
+  /* Slightly more space between sections. */
+  .panel {
+    margin-bottom: 2px;
+  }
+}
