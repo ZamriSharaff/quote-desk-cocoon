@@ -1,0 +1,12 @@
+{
+  "name": "quote-desk-starter",
+  "version": "0.1.0",
+  "description": "Starter for the Cocoon engineering exercise: a small quote service with real data and real problems.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  }
+}
