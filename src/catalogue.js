@@ -20,8 +20,12 @@ export function splitCsvLine(line) {
 }
 
 export function parsePrice(raw) {
-  const n = parseFloat(raw);
-  return Number.isNaN(n) ? null : n;
+  const cleaned = String(raw ?? '').replace(/,/g, '').trim();
+
+  if (!cleaned) return null;
+
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : null;
 }
 
 export function loadCatalogue(path = CSV) {
