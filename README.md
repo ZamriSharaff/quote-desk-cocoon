@@ -79,6 +79,7 @@ public
 ```
 
 Configure `GEMINI_API_KEY` as an encrypted secret in Cloudflare Pages. The key is never included in frontend code.
+Production deployments are triggered automatically by pushes to the main branch.
 
 ## Project structure
 
