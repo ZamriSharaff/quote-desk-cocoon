@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from email.message import EmailMessage
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from zoneinfo import ZoneInfo
 
 
@@ -163,21 +164,54 @@ def build_summary():
     return yesterday, summary, payload
 
 
+
 def send_webhook(payload):
-    webhook_url = os.environ["COCOON_WEBHOOK_URL"]
+    webhook_url = os.environ.get("COCOON_WEBHOOK_URL", "").strip()
+
+    if not webhook_url:
+        raise RuntimeError("COCOON_WEBHOOK_URL is missing.")
 
     request = Request(
         webhook_url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
         method="POST",
     )
 
-    with urlopen(request, timeout=30) as response:
-        if not 200 <= response.status < 300:
-            raise RuntimeError("Webhook returned an unsuccessful status.")
+    try:
+        with urlopen(request, timeout=30) as response:
+            response_body = response.read().decode(
+                "utf-8", errors="replace"
+            )
 
-        print(f"Webhook delivered successfully: HTTP {response.status}")
+            print(f"Webhook delivered: HTTP {response.status}")
+
+            if response_body:
+                print(f"Webhook response: {response_body[:2000]}")
+
+    except HTTPError as error:
+        response_body = error.read().decode(
+            "utf-8", errors="replace"
+        )
+
+        print(
+            f"Webhook rejected the request: "
+            f"HTTP {error.code} {error.reason}"
+        )
+
+        if response_body:
+            print(f"Webhook error response: {response_body[:2000]}")
+
+        raise
+
+    except URLError as error:
+        raise RuntimeError(
+            f"Could not connect to Cocoon webhook: {error.reason}"
+        ) from error
+
 
 
 def send_email(subject, body):
@@ -222,7 +256,7 @@ def main():
     try:
         send_webhook(payload)
     except Exception as error:
-        print(f"Webhook delivery failed: {type(error).__name__}")
+        print(f"Webhook delivery failed: {error}")
         errors.append("Webhook delivery failed.")
 
     try:
@@ -235,16 +269,6 @@ def main():
         errors.append("Email delivery failed.")
 
     if errors:
-        try:
-            send_email(
-                "ALERT: Lakeside daily automation failed",
-                "The daily summary automation did not complete successfully.\n\n"
-                + "\n".join(errors)
-                + "\n\nCheck the GitHub Actions run for details.",
-            )
-        except Exception:
-            print("Could not send the failure notification.")
-
         sys.exit(1)
 
 
