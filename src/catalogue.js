@@ -50,6 +50,6 @@ export function loadCatalogue(path = CSV) {
 }
 
 export function search(products, query) {
-  const re = new RegExp(query);
+  const re = new RegExp(query, 'i');
   return products.filter((p) => re.test(p.name) || re.test(p.sku));
 }
